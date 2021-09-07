@@ -1,6 +1,5 @@
 class Category < ApplicationRecord
-    include Discard::Model
-
+    
     #Associations
     #belongs_to:
     #has_many or has_one:

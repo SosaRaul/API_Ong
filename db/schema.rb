@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 2021_09_06_223807) do
     t.string "firstName", null: false
     t.string "lastName", null: false
     t.string "email", null: false
-    t.string "password", null: false
+    t.string "password_digest", null: false
     t.string "photo"
     t.boolean "soft_deleted", default: false
     t.date "deleted_at"
