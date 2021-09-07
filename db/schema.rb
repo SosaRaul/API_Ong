@@ -10,11 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_04_004252) do
+ActiveRecord::Schema.define(version: 2021_09_06_223807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "organizations", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "address"
+    t.integer "phone"
+    t.string "email", null: false
+    t.text "welcomeText", null: false
+    t.text "aboutUsText"
+    t.boolean "organizationDelete"
+    
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -48,6 +57,13 @@ ActiveRecord::Schema.define(version: 2021_09_04_004252) do
     t.text "content"
     t.datetime "deletedAt"
     t.integer "deleted"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

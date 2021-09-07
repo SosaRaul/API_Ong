@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :news
   resources :testimonials
+  resources :roles
+  resources :organizations
   resources :members
   resources :activities
   resources :users
