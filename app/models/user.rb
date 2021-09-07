@@ -14,8 +14,11 @@ class User < ApplicationRecord
               presence: true
 
     #Scopes
-    #def soft_destroy
-    #    update_column("deleted_at", Time.current) 
-    #end
+    def soft_delete
+        update_column("deleted_at", Time.current) 
+        update("soft_deleted": true)
+    end
+    scope :not_deleted, -> { where(soft_deleted: false) }
+    scope :deleted, -> { where(soft_deleted: true) }
 end
 

@@ -3,9 +3,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories
   def index
-    @categories = Category.kept
-
-    render json: @categories
+    render json: categories,  status: :ok
   end
 
   # GET /categories/1
@@ -16,7 +14,6 @@ class CategoriesController < ApplicationController
   # POST /categories
   def create
     @category = Category.new(category_params)
-
     if @category.save
       render json: @category, status: :created, location: @category
     else
@@ -35,8 +32,8 @@ class CategoriesController < ApplicationController
 
   # DELETE /categories/1
   def destroy
-    @category.discard
-    if @category.discarded?
+    @category.soft_delete
+    if @category.soft_deleted?
       render json: { message: "category deleted"}, status: :ok
     end
   end
@@ -45,6 +42,10 @@ class CategoriesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_category
       @category = Category.find(params[:id])
+    end
+
+    def categories
+      @category = Category.all.not_deleted
     end
 
     # Only allow a list of trusted parameters through.

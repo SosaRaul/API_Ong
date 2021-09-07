@@ -3,9 +3,7 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.kept
-
-    render json: @users,  status: :ok
+    render json: users,  status: :ok
   end
 
   # GET /users/1
@@ -16,7 +14,6 @@ class UsersController < ApplicationController
   # POST /users
   def create
     @user = User.new(user_params)
-
     if @user.save
       render json: @user, status: :created, location: @user
     else
@@ -35,8 +32,8 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   def destroy
-    @user.discard
-    if @user.discarded?
+    @user.soft_delete
+    if @user.soft_deleted?
       render json: { message: "user deleted"}, status: :ok
     end
   end
@@ -45,6 +42,10 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
+    end
+
+    def users
+      @user = User.all.not_deleted
     end
 
     # Only allow a list of trusted parameters through.

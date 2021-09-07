@@ -24,7 +24,8 @@ end
 10.times do
     categories = Category.create!(
         name: Faker::Book.title,
-        description: Faker::Quote.famous_last_words
+        description: Faker::Quote.famous_last_words,
+        image: nil
     )
 end    
 

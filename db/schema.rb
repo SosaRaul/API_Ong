@@ -15,15 +15,6 @@ ActiveRecord::Schema.define(version: 2021_09_06_223807) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "organizations", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "address"
-    t.integer "phone"
-    t.string "email", null: false
-    t.text "welcomeText", null: false
-    t.text "aboutUsText"
-    t.boolean "organizationDelete"
-    
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -61,20 +52,13 @@ ActiveRecord::Schema.define(version: 2021_09_06_223807) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "roles", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "description", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
+    t.boolean "soft_deleted", default: false
+    t.date "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.datetime "discarded_at"
-    t.index ["discarded_at"], name: "index_categories_on_discarded_at"
   end
 
   create_table "members", force: :cascade do |t|
@@ -89,16 +73,52 @@ ActiveRecord::Schema.define(version: 2021_09_06_223807) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "news", force: :cascade do |t|
+    t.string "name"
+    t.text "content"
+    t.boolean "softDelets"
+    t.integer "categoryId"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "address"
+    t.integer "phone"
+    t.string "email", null: false
+    t.text "welcomeText", null: false
+    t.text "aboutUsText"
+    t.boolean "organizationDelete"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "testimonials", force: :cascade do |t|
+    t.string "name"
+    t.text "content"
+    t.boolean "softDelets"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "firstName", null: false
     t.string "lastName", null: false
     t.string "email", null: false
     t.string "password", null: false
     t.string "photo"
+    t.boolean "soft_deleted", default: false
+    t.date "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.datetime "discarded_at"
-    t.index ["discarded_at"], name: "index_users_on_discarded_at"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
