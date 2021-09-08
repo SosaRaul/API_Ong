@@ -1,21 +1,15 @@
 class AuthController < ApplicationController  
 #include ActionController::HttpAuthentication::Token
-  #skip_before_action :authenticate!
+  #skip_before_action :authenticate_user!
 
-  #def authenticate_user
-    # Authorization: Bearer <token>
-    #token, _options = token_and_options(request)
-    #decoded_token = decode(token)
-    #user = decoded_token[0] [payload]
-  # end
-
+    # REGISTER
     def register
       user = User.new(register_params)
       if user.save 
         payload = { firstName: user.firstName, lastName: user.lastName, email: user.email, password: user.password }
         token = AuthenticationTokenService.encode(payload)
         decoded_token = AuthenticationTokenService.decode(token)
-        #authenticate_user()
+        response.headers["token"] = token   #para pasar el token generado en el header
         render json: user, status: :created
         #render json: { user: user, token: token, decoded_token: decoded_token }, status: :ok
       else 
@@ -23,18 +17,13 @@ class AuthController < ApplicationController
       end
     end
 
-    def login
-    end
 
-    private
+  private
     def register_params
         params.permit(:firstName, :lastName, :email, :password)
     end
 
-    #def login_params
-    #  params.permit(:email, :password)
-    #end
-  
 end
+
     
     
