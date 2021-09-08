@@ -16,8 +16,8 @@ class AuthController < ApplicationController
         token = AuthenticationTokenService.encode(payload)
         decoded_token = AuthenticationTokenService.decode(token)
         #authenticate_user()
-        #render json: user, status: :created
-        render json: { user: user, token: token, decoded_token: decoded_token }, status: :ok
+        render json: user, status: :created
+        #render json: { user: user, token: token, decoded_token: decoded_token }, status: :ok
       else 
         render json: user.errors, status: :unprocessable_entity
       end
