@@ -8,7 +8,7 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :photo
       t.boolean :soft_deleted, default: false
       t.date :deleted_at
-      #t.belongs_to :role, foreign_key: true           ver con el equipo
+      t.belongs_to :role     
 
       t.timestamps
     end

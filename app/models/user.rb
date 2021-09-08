@@ -3,8 +3,7 @@ class User < ApplicationRecord
     has_secure_password
 
     #Associations
-    #belongs_to: :role, optienal: true                       #ver con el equipo
-    #has_many or has_one:
+    belongs_to :role, optional: true                    
 
     #Validations
     validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP },  presence: true

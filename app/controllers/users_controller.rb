@@ -50,6 +50,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:id, :firstName, :lastName, :email, :password, :photo) 
-    end           #luego de migrar, agregar :role_id
+      params.require(:user).permit(:id, :firstName, :lastName, :email, :password, :photo, :role_id) 
+    end          
 end
