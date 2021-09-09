@@ -1,7 +1,8 @@
 class AuthenticationTokenService
     require 'jwt'
-
-    HMAC_SECRET = "1234"
+    require 'dotenv'
+    Dotenv.load('.env')
+    HMAC_SECRET = ENV['MI_CLAVE']
 
     def self.encode(payload)
       JWT.encode payload, HMAC_SECRET, 'HS256'  
