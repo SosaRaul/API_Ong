@@ -1,24 +1,19 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy]
+  #before_action :find_user, only: [:show, :update, :destroy]
+  #before_action :authorize_request, except: :index
+  #before_action :authorize_request, except: :login
+  #before_action :find_user, except: :register
+  before_action :find_user, except: :index
 
   # GET /users
   def index
-    render json: users,  status: :ok
+    @users = User.all
+    render json: @users,  status: :ok
   end
 
   # GET /users/1
   def show
     render json: @user,  status: :ok
-  end
-
-  # POST /users
-  def create
-    @user = User.new(user_params)
-    if @user.save
-      render json: @user, status: :created, location: @user
-    else
-      render json: @user.errors, status: :unprocessable_entity
-    end
   end
 
   # PATCH/PUT /users/1
@@ -30,7 +25,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1
+  # DELETE /users/id
   def destroy
     @user.soft_delete
     if @user.soft_deleted?
@@ -39,17 +34,20 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  
+  def users
+    @user = User.all.not_deleted
+  end 
+    
+  def find_user
+    @user = User.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render json: { errors: 'User not found' }, status: :not_found
+  end
 
-    def users
-      @user = User.all.not_deleted
-    end
-
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:id, :firstName, :lastName, :email, :password, :photo, :role_id) 
-    end          
+  # Only allow a list of trusted parameters through.
+  def user_params
+    params.require(:user).permit(:id, :firstName, :lastName, :email, :password, :photo, :role_id) 
+  end          
 end
