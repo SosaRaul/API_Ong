@@ -1,6 +1,6 @@
 class AuthController < ApplicationController  
 
-#before_action :authorize_request, except: :login
+before_action :authorize_request, except: :login
 #before_action :authorize_request, except: :register
 
   # Registro
@@ -30,6 +30,9 @@ class AuthController < ApplicationController
     end
   end
   
+
+
+
   private
 
   def login_params

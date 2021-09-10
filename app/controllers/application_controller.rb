@@ -16,7 +16,7 @@ class ApplicationController < ActionController::API
     rescue ActiveRecord::RecordNotFound => e
       render json: { errors: e.message }, status: :unauthorized
     rescue JWT::DecodeError => e
-      render json: { errors: e.message }, status: :unauthorized
+      render status: :forbidden
     end
   end
 

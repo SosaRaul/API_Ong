@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
-  #before_action :find_user, only: [:show, :update, :destroy]
-  #before_action :authorize_request, except: :index
-  #before_action :authorize_request, except: :login
-  #before_action :find_user, except: :register
-  before_action :find_user, except: :index
-
+  before_action :authorize_request, except: :index
+  before_action :find_user, only: [:show, :update, :destroy]
+  
+  # Hasta aca cada usuario solo puede hacer las operaciones asociadas a el 
+  # No puede borrar ni ver a otros usuarios (esto lo maneja al comparar el campo id del token)
+  # Queda hacer que el administrador sea el unico que pueda listar todos los usuarios 
+  # Al administrador le pondría id = 0
   # GET /users
   def index
     @users = User.all
@@ -34,20 +35,19 @@ class UsersController < ApplicationController
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
-  
-  def users
-    @user = User.all.not_deleted
-  end 
+
+  def find_user  
+    if(params[:id].to_i == @current_user.id)
+      @user = User.find(@current_user.id)
+     #rescue ActiveRecord::RecordNotFound
+    else
+      render status: :forbidden
     
-  def find_user
-    @user = User.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      render json: { errors: 'User not found' }, status: :not_found
+    end
   end
 
-  # Only allow a list of trusted parameters through.
   def user_params
     params.require(:user).permit(:id, :firstName, :lastName, :email, :password, :photo, :role_id) 
-  end          
+  end
+
 end

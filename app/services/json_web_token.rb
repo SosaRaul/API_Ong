@@ -1,4 +1,7 @@
 class JsonWebToken
+  
+  require 'dotenv'
+  Dotenv.load('.env')
   SECRET_KEY = ENV['MI_CLAVE']
 
   def self.encode(payload, exp = 24.hours.from_now)
