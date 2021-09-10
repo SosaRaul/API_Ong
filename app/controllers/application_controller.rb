@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
   # Setear host
   include ActiveStorage::SetCurrent
-
+  
   def not_found
     render json: { error: 'not_found' }
   end
