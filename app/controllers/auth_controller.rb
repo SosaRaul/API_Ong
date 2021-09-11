@@ -1,7 +1,7 @@
 class AuthController < ApplicationController  
 
-before_action :authorize_request, except: :login
-#before_action :authorize_request, except: :register
+#before_action :authorize_request, except: :login
+before_action :authorize_request, except: %i[register login]
 
   # Registro
   # POST /auth/register
