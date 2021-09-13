@@ -1,24 +1,20 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy]
-
+  before_action :authorize_request, except: :index
+  before_action :find_user, only: [:show, :update, :destroy]
+  
+  # Hasta aca cada usuario solo puede hacer las operaciones asociadas a el 
+  # No puede borrar ni ver a otros usuarios (esto lo maneja al comparar el campo id del token)
+  # Queda hacer que el administrador sea el unico que pueda listar todos los usuarios 
+  # Al administrador le pondría id = 0
   # GET /users
   def index
-    render json: users,  status: :ok
+    @users = User.all
+    render json: @users,  status: :ok
   end
 
   # GET /users/1
   def show
     render json: @user,  status: :ok
-  end
-
-  # POST /users
-  def create
-    @user = User.new(user_params)
-    if @user.save
-      render json: @user, status: :created, location: @user
-    else
-      render json: @user.errors, status: :unprocessable_entity
-    end
   end
 
   # PATCH/PUT /users/1
@@ -30,7 +26,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1
+  # DELETE /users/id
   def destroy
     @user.soft_delete
     if @user.soft_deleted?
@@ -39,17 +35,19 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    def users
-      @user = User.all.not_deleted
+  def find_user  
+    if(params[:id].to_i == @current_user.id)
+      @user = User.find(@current_user.id)
+     #rescue ActiveRecord::RecordNotFound
+    else
+      render status: :forbidden
+    
     end
+  end
 
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:id, :firstName, :lastName, :email, :password, :photo, :role_id) 
-    end          
+  def user_params
+    params.require(:user).permit(:id, :firstName, :lastName, :email, :password, :photo, :role_id) 
+  end
+
 end
