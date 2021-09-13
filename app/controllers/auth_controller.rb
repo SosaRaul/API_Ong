@@ -8,6 +8,7 @@ before_action :authorize_request, except: %i[register login]
   def register
     @user = User.create(register_params)
     if @user.save
+      UserMailer.with(user: @user).welcome_email.deliver_now
       render json: @user, status: :created
     else
       render json: { errors: @user.errors.full_messages },
