@@ -48,3 +48,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'dotenv'
 
 gem 'pundit'
+
+# AMAZON
+gem "aws-sdk-s3", require: false
