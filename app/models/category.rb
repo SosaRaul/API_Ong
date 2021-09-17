@@ -3,7 +3,7 @@ class Category < ApplicationRecord
     #Associations
     #belongs_to:
     #has_many or has_one:
-    has_one_attached :image, service: :s3
+    has_one_attached :image
    
     #Validations
     validates :name, 

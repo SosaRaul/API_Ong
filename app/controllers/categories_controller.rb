@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories
   def index
-    render json: categories,  status: :ok
+    render json: categories.to_json(only: [:id, :name]),  status: :ok
   end
 
   # GET /categories/1
