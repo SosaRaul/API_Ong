@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :update, :destroy]
+  #before_action :verify_user_is_admin
 
   # GET /categories
   def index
@@ -8,7 +9,11 @@ class CategoriesController < ApplicationController
 
   # GET /categories/1
   def show
-    render json: @category, status: :ok
+    if @category.nil?
+      render json: { error: "category not found" }, status: :not_found
+    else
+     render json: @category, status: :ok 
+    end
   end
 
   # POST /categories
@@ -31,17 +36,20 @@ class CategoriesController < ApplicationController
   end
 
   # DELETE /categories/1
-  def destroy
-    @category.soft_delete
-    if @category.soft_deleted?
-      render json: { message: "category deleted"}, status: :ok
+  def destroy   
+    if  @category.nil?    
+      render json: { error: "cannot destroy, it does not exist" }, status: :unprocessable_entity
+    else  
+      if @category.destroy
+      render json: { message: "category destroyed"}, status: :ok
+      end
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_category
-      @category = Category.find(params[:id])
+      @category = Category.find_by("id": params[:id]) 
     end
 
     def categories
