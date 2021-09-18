@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :update, :destroy]
-  before_action :verify_user_is_admin, only: [:index, :delete]
+  before_action :verify_user_is_admin, only: [:index, :destroy]
 
   # GET /categories
   def index
@@ -9,11 +9,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories/1
   def show
-    if @category.nil?
-      render json: { error: "category not found" }, status: :not_found
-    else
      render json: @category, status: :ok 
-    end
   end
 
   # POST /categories
@@ -37,23 +33,22 @@ class CategoriesController < ApplicationController
 
   # DELETE /categories/1
   def destroy   
-    if  @category.nil?    
-      render json: { error: "cannot destroy, it does not exist" }, status: :unprocessable_entity
-    else  
       if @category.destroy
       render json: { message: "category destroyed"}, status: :ok
       end
-    end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_category
       @category = Category.find_by("id": params[:id]) 
+      if @category.nil?
+        render json: { message: "category not found"}, status: :not_found
+      end
     end
 
     def categories
-      @category = Category.all.not_deleted
+      @category = Category.all
     end
 
     # Only allow a list of trusted parameters through.
