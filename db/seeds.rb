@@ -8,15 +8,38 @@
 
 require 'faker'
 
+#ROLES
+admin = Role.create!(
+    name: "admin" ,
+    description: "an admin user cans access to: categories#delete,#index,
+    users#index ..."
+)
+
+regular = Role.create!(
+    name: "regular" ,
+    description: "a regular user cans access to: users#update ..."
+)
+
 #USERS
-10.times do
+5.times do
     users = User.create!(
         firstName: Faker::Name.first_name ,
         lastName: Faker::Name.last_name,
         email: Faker::Name.first_name+"@email.com",
-        password: Faker::Internet.password,
-        photo: Faker::Book.title
-        #roleId: "1"  #ver con el equipo
+        password: "123",
+        photo: Faker::Book.title,
+        role: admin
+    )
+end
+
+5.times do
+    users = User.create!(
+        firstName: Faker::Name.first_name ,
+        lastName: Faker::Name.last_name,
+        email: Faker::Name.first_name+"@email.com",
+        password: "1234",
+        photo: Faker::Book.title,
+        role: regular
     )
 end
 

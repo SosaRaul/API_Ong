@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :authorize_request, except: :index
+  before_action :authorize_request
   before_action :find_user, only: [:show, :update, :destroy]
-  
+  before_action :verify_user_is_admin, only: [:index]
   # Hasta aca cada usuario solo puede hacer las operaciones asociadas a el 
   # No puede borrar ni ver a otros usuarios (esto lo maneja al comparar el campo id del token)
   # Queda hacer que el administrador sea el unico que pueda listar todos los usuarios 
