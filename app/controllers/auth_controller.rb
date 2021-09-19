@@ -7,6 +7,7 @@ before_action :authorize_request, except: %i[register login]
   # POST /auth/register
   def register
     @user = User.create(register_params)
+    @user.role = Role.find(2)  #when a user registers, its role is automatically set to regular 
     if @user.save
       UserMailer.with(user: @user).welcome_email.deliver_now
       render json: @user, status: :created

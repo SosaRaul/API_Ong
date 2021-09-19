@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :authorize_request, except: :index
+  before_action :authorize_request
   before_action :find_user, only: [:show, :update, :destroy]
-  
+  before_action :verify_user_is_admin, only: [:index]
   # Hasta aca cada usuario solo puede hacer las operaciones asociadas a el 
   # No puede borrar ni ver a otros usuarios (esto lo maneja al comparar el campo id del token)
   # Queda hacer que el administrador sea el unico que pueda listar todos los usuarios 
@@ -28,8 +28,8 @@ class UsersController < ApplicationController
 
   # DELETE /users/id
   def destroy
-    @user.soft_delete
-    if @user.soft_deleted?
+    @user.destroy
+    if @user.destroy
       render json: { message: "user deleted"}, status: :ok
     end
   end
@@ -40,9 +40,10 @@ class UsersController < ApplicationController
     if(params[:id].to_i == @current_user.id)
       @user = User.find(@current_user.id)
      #rescue ActiveRecord::RecordNotFound
+    elsif (User.find_by("id": params[:id]) ).nil?
+      render status: :not_found
     else
       render status: :forbidden
-    
     end
   end
 
