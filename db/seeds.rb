@@ -20,6 +20,8 @@ regular = Role.create!(
     description: "a regular user cans access to: users#update ..."
 )
 
+
+
 #USERS
 5.times do
     users = User.create!(
@@ -52,7 +54,14 @@ end
     )
 end    
 
-p "Creados #{User.count} usuarios y #{Category.count} categorias"
+#NEWS
+4.times do
+    News.create!(name: "Noticia #{Faker::Number.non_zero_digit}",
+                content:Faker::Lorem.paragraph)
+end                
+
+
+p "Creados #{User.count} usuarios , #{Category.count} categorias y #{News.count} novedades"
 
 
 

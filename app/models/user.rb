@@ -9,7 +9,6 @@ class User < ApplicationRecord
     validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP },  presence: true
     validates :firstName, 
               :lastName,
-              #:roleId,        ver con el equipo, deberia generarse en la migracion al hacer la asociacion belongs to (:role_id)
               presence: true
 
     #Scopes
