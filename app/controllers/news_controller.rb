@@ -1,5 +1,7 @@
 class NewsController < ApplicationController
   before_action :set_news, only: [:show, :update, :destroy]
+  before_action :authorize_request, only: [:destroy]
+  before_action :verify_user_is_admin, only: [:destroy, :update]
 
   # GET /news
   def index
@@ -36,12 +38,15 @@ class NewsController < ApplicationController
   # DELETE /news/1
   def destroy
     @news.destroy
+    render json: {message: "news deleted"}
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_news
       @news = News.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render json: { message: "news not found" }, status: :not_found
     end
 
     # Only allow a list of trusted parameters through.

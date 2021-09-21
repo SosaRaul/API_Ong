@@ -10,4 +10,11 @@ class UserMailer < ApplicationMailer
          template_path: 'user_mailer',   #app/views/user_mailer
          template_name: 'welcome_email')
   end
+
+  def contact_email(email)
+    mail(to: email,
+         subject: 'Gracias por contactarnos'
+         template_path: 'user_mailer',
+         template_name: 'contact_email')
+  end
 end

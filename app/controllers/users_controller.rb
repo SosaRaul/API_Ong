@@ -40,10 +40,10 @@ class UsersController < ApplicationController
     if(params[:id].to_i == @current_user.id)
       @user = User.find(@current_user.id)
      #rescue ActiveRecord::RecordNotFound
-    elsif (User.find_by("id": params[:id]) ).nil?
-      render status: :not_found
+  #  elsif (User.find_by("id": params[:id]) ).nil?
+  #    render status: :not_found
     else
-      render status: :forbidden
+      render json: {message: "No permitted"}, status: :forbidden
     end
   end
 
