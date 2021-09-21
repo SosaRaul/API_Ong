@@ -6,7 +6,7 @@ class Category < ApplicationRecord
     has_one_attached :image
    
     #Validations
-    validates :name, 
+    validates :name, uniqueness: true,
               presence: true
     
     #Scopes          
