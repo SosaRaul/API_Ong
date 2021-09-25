@@ -8,6 +8,19 @@
 
 require 'faker'
 
+#ORGANIZATION
+organization_A = Organization.create!(
+    name: "nombre ONG",
+    address: "direccion ONG",
+    phone: "",
+    email: "exampleONG@org.com",
+    welcomeText: "texto bienvenida ONG",
+    aboutUsText: "texto sobre ONG",
+    linkedinUrl: "linkedin.com/profile",
+    facebookUrl: "facebook.com/profile",
+    instagramUrl: "instagram.com/profile"
+)
+
 #ROLES
 admin = Role.create!(
     name: "admin" ,
