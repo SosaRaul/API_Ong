@@ -1,5 +1,5 @@
 class OrganizationsController < ApplicationController
-  before_action :set_organization, only: [:show, :update, :destroy]
+  before_action :set_organization, only: [:update, :destroy]
 
   # GET /organizations
   def index
@@ -8,8 +8,9 @@ class OrganizationsController < ApplicationController
     render json: @organizations
   end
 
-  # GET /organizations/1
+  # GET /organization/public
   def show
+    @organization = Organization.first
     render json: @organization
   end
 
