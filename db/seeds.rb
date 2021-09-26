@@ -12,7 +12,7 @@ require 'faker'
 organization_A = Organization.create!(
     name: "nombre ONG",
     address: "direccion ONG",
-    phone: "",
+    phone: "444444",
     email: "exampleONG@org.com",
     welcomeText: "texto bienvenida ONG",
     aboutUsText: "texto sobre ONG",
