@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_13_202326) do
+ActiveRecord::Schema.define(version: 2021_09_24_235025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,9 @@ ActiveRecord::Schema.define(version: 2021_09_13_202326) do
     t.boolean "organizationDelete"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.json "linkedinUrl"
+    t.json "facebookUrl"
+    t.json "instagramUrl"
   end
 
   create_table "roles", force: :cascade do |t|
