@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post "auth/login" => "auth#login"
   get "/organization/public", to: "organizations#show"
   post "/organization/public", to: "organizations#update"
-  get '/*a', to: 'application#not_found'
-
+  get "*path" => 'application#not_found', constraints: lambda { |req|
+                  req.path.exclude? 'rails/active_storage'
+}
 end
