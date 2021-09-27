@@ -1,7 +1,7 @@
 class NewsController < ApplicationController
   before_action :set_news, only: [:show, :update, :destroy]
-  before_action :authorize_request, only: [:update,:destroy]
-  before_action :verify_user_is_admin, only: [:destroy, :update]
+  before_action :authorize_request, only: [:show, :create, :destroy, :update]
+  before_action :verify_user_is_admin, only: [:show, :create, :destroy, :update]
 
   # GET /news
   def index
