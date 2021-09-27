@@ -10,7 +10,9 @@ Rails.application.routes.draw do
 
   post "auth/register" => "auth#register" 
   post "auth/login" => "auth#login"
-  get '/*a', to: 'application#not_found'
-
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  get "/organization/public", to: "organizations#show"
+  post "/organization/public", to: "organizations#update"
+  get "*path" => 'application#not_found', constraints: lambda { |req|
+                  req.path.exclude? 'rails/active_storage'
+}
 end

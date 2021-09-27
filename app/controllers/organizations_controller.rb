@@ -1,6 +1,8 @@
 class OrganizationsController < ApplicationController
-  before_action :set_organization, only: [:show, :update, :destroy]
-
+  before_action :authorize_request, only: [:update,:destroy,:create]
+  before_action :verify_user_is_admin, only: [:update, :destroy,:create]
+  before_action :set_organization, only: [:update, :destroy]
+  
   # GET /organizations
   def index
     @organizations = Organization.all
@@ -8,9 +10,10 @@ class OrganizationsController < ApplicationController
     render json: @organizations
   end
 
-  # GET /organizations/1
+  # GET /organization/public
   def show
-    render json: @organization
+    @organization = Organization.first
+    render json: @organization ,serializer: OrganizationSerializer::PublicinfoSerializer
   end
 
   # POST /organizations
@@ -27,7 +30,7 @@ class OrganizationsController < ApplicationController
   # PATCH/PUT /organizations/1
   def update
     if @organization.update(organization_params)
-      render json: @organization
+      render json: @organization, serializer: OrganizationSerializer::InfoupdatedSerializer
     else
       render json: @organization.errors, status: :unprocessable_entity
     end
@@ -41,11 +44,11 @@ class OrganizationsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_organization
-      @organization = Organization.find(params[:id])
+      @organization = Organization.first
     end
 
     # Only allow a list of trusted parameters through.
     def organization_params
-      params.require(:organization).permit(:name)
+      params.permit(:name,:phone,:email,:address,:aboutUsText,:welcomeText,:linkedinUrl,:facebookUrl,:instagramUrl,:image)
     end
 end

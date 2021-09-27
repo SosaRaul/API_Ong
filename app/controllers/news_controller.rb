@@ -29,7 +29,7 @@ class NewsController < ApplicationController
   # PATCH/PUT /news/1
   def update
     if @news.update(news_params)
-      render json: @news
+      render json: @news,serializer: NewsSerializer::NewsupdatedSerializer
     else
       render json: @news.errors, status: :unprocessable_entity
     end
@@ -51,6 +51,6 @@ class NewsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def news_params
-      params.require(:news).permit(:name, :content, :softDelets, :categoryId)
+      params.permit(:name, :content, :softDelets, :categoryId)
     end
 end
