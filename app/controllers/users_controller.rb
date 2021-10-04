@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-<<<<<<< HEAD
   before_action :authorize_request
   before_action :find_user, only: [:show, :update, :destroy]
   before_action :verify_user_is_admin, only: [:index]
@@ -9,25 +8,6 @@ class UsersController < ApplicationController
     @users = User.all
     render json: @users,  status: :ok
   end
-=======
-before_action :authorize_request
-before_action :find_user, only: [:show, :update, :destroy]
-before_action :verify_user_is_admin, only: [:index]
-# Hasta aca cada usuario solo puede hacer las operaciones asociadas a el 
-# No puede borrar ni ver a otros usuarios (esto lo maneja al comparar el campo id del token)
-# Queda hacer que el administrador sea el unico que pueda listar todos los usuarios 
-# Al administrador le pondría id = 0
-# GET /users
-def index
-  @users = User.all
-  render json: @users,  status: :ok
-end
-
-# GET /users/1
-def show
-  render json: @user,  status: :ok
-end
->>>>>>> f9217000d2b9a14430ce429e5df39eab627b9bd8
 
 # PATCH/PUT /users/1
 def update
