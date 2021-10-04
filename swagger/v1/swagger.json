@@ -17,6 +17,19 @@
         "produces": [
           "application/json"
         ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "List of news",
@@ -26,7 +39,7 @@
                 "category": {
                   "type": "object",
                   "items": {
-                    "$ref": "#/definitions/User"
+                    "$ref": "#/definitions/Category"
                   }
                 }
               }
@@ -72,7 +85,7 @@
               },
               "required": [
                 "name",
-                "content"
+                "description"
               ]
             }
           }
@@ -130,14 +143,14 @@
                 "name": {
                   "type": "string"
                 },
-                "content": {
+                "description": {
                   "type": "string"
                 }
               },
               "required": [
                 "id",
                 "name",
-                "content"
+                "description"
               ]
             }
           },
@@ -150,7 +163,7 @@
         }
       },
       "put": {
-        "summary": "Updates a new (admins only)",
+        "summary": "Updates a category (admins only)",
         "tags": [
           "Categories"
         ],
@@ -193,7 +206,7 @@
               },
               "required": [
                 "name",
-                "content"
+                "description"
               ]
             }
           }

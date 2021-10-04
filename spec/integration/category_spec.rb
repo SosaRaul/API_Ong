@@ -6,16 +6,16 @@ describe 'Categories API', type: :request do
       tags 'Categories' 
       consumes 'application/json'
       produces 'application/json'
+      security [Bearer: {}]
+      parameter name: :Authorization, in: :header, type: :string
             
       response '200', 'List of news' do 
       schema type: :object,  properties: {
               category: {
               type: :object, 
-              items: { '$ref' => '#/definitions/User' }   
+              items: { '$ref' => '#/definitions/Category' }   
                     }                    
                 }
-
-      let!(:news) { News.create(name: 'Ficcion', content: 'Contenido') }
                                        
 
       run_test! do |response|
@@ -40,11 +40,11 @@ describe 'Categories API', type: :request do
               properties: {
               id: { type: :integer },
               name: { type: :string },
-              content: { type: :string }
+              description: { type: :string }
               },
-              required: [ 'id', 'name', 'content' ]
+              required: [ 'id', 'name', 'description' ]
 
-      let(:id) { Category.create(name: 'foo', content: 'bar').id }
+      let(:id) { Category.create(name: 'foo', description: 'bar').id }
         run_test!
       end
     
@@ -73,11 +73,11 @@ describe 'Categories API', type: :request do
               description: { type: :string },
               image: { type: :string },
             },
-            required: [ 'name', 'content' ]
+            required: [ 'name', 'description' ]
           }
     
           response '201', 'category created' do
-            let(:news) { { title: 'foo', content: 'bar' } }
+            let(:news) { { title: 'foo', description: 'bar' } }
             run_test!
           end
     
@@ -94,7 +94,7 @@ describe 'Categories API', type: :request do
     end
 
       path '/categories/{id}' do
-        put 'Updates a new (admins only)' do
+        put 'Updates a category (admins only)' do
           tags 'Categories'
           consumes 'application/json'#, 'application/xml'
           security [Bearer: {}]
@@ -107,11 +107,11 @@ describe 'Categories API', type: :request do
               description: { type: :string },
               image: { type: :string },
             },
-            required: [ 'name', 'content' ]
+            required: [ 'name', 'description' ]
           }
     
           response '200', 'OK: category updated' do
-            let(:news) { { title: 'foo', content: 'bar' } }
+            let(:news) { { title: 'foo', description: 'bar' } }
             run_test!
           end
 
@@ -136,7 +136,7 @@ describe 'Categories API', type: :request do
           parameter name: :id, :in => :path, :type => :string
     
           response '201', 'category deleted' do
-            let(:news) { { title: 'foo', content: 'bar' } }
+            let(:news) { { title: 'foo', description: 'bar' } }
             run_test!
           end
     

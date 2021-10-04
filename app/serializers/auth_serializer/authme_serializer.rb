@@ -1,8 +1,10 @@
 module AuthSerializer
     class  AuthmeSerializer < ActiveModel::Serializer
-      attributes :firstName,
+      attributes :id,
+                 :firstName,
                  :lastName,
                  :email,
-                 :photo          
+                 :photo,
+                 :role_id
     end
   end
