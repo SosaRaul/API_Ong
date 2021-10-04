@@ -1,0 +1,352 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Alkymers on Rails - ONG Grupo 73 - API V1",
+    "version": "v1"
+  },
+  "paths": {
+    "/categories": {
+      "get": {
+        "summary": "Fetch categories",
+        "tags": [
+          "Categories"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of news",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "category": {
+                  "type": "object",
+                  "items": {
+                    "$ref": "#/definitions/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Creates a category (admins only)",
+        "tags": [
+          "Categories"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "news",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "image": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "content"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "category created"
+          },
+          "404": {
+            "description": "not found"
+          },
+          "401": {
+            "description": "forbbiden"
+          }
+        }
+      }
+    },
+    "/categories/{id}": {
+      "get": {
+        "summary": "Retrieves a category (admins only)",
+        "tags": [
+          "Categories"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "category found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "content"
+              ]
+            }
+          },
+          "404": {
+            "description": "category not found"
+          },
+          "401": {
+            "description": "forbbiden"
+          }
+        }
+      },
+      "put": {
+        "summary": "Updates a new (admins only)",
+        "tags": [
+          "Categories"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "news",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "image": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "content"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK: category updated"
+          },
+          "404": {
+            "description": "not found"
+          },
+          "401": {
+            "description": "forbbiden"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletes a category (admins only)",
+        "tags": [
+          "Categories"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "category deleted"
+          },
+          "404": {
+            "description": "not found"
+          },
+          "401": {
+            "description": "forbbiden"
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://{defaultHost}",
+      "variables": {
+        "defaultHost": {
+          "default": "localhost:3000"
+        }
+      }
+    }
+  ],
+  "definitions": {
+    "News": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": "1"
+        },
+        "name": {
+          "type": "string",
+          "example": "NombreNews"
+        },
+        "content": {
+          "type": "string",
+          "example": "ContenidoNews"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": "1"
+        },
+        "firstName": {
+          "type": "string",
+          "example": "NombreUsuario"
+        },
+        "lartName": {
+          "type": "string",
+          "example": "ApellidoUsuario"
+        },
+        "email": {
+          "type": "string",
+          "example": "EmailUsuario@example.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "passwordUsuario"
+        }
+      }
+    },
+    "Category": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": "1"
+        },
+        "firstName": {
+          "type": "string",
+          "example": "NombreUsuario"
+        },
+        "lartName": {
+          "type": "string",
+          "example": "ApellidoUsuario"
+        },
+        "email": {
+          "type": "string",
+          "example": "EmailUsuario@example.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "passwordUsuario"
+        }
+      }
+    },
+    "ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "messages": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": "Error description"
+          }
+        }
+      }
+    },
+    "securityDefinitions": {
+      "Bearer": {
+        "description": "...",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  }
+}
