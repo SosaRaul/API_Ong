@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
   resources :news
   resources :testimonials
   resources :roles
@@ -10,6 +12,7 @@ Rails.application.routes.draw do
 
   post "auth/register" => "auth#register" 
   post "auth/login" => "auth#login"
+  get "auth/me" => "auth#me"
   get "/organization/public", to: "organizations#show"
   post "/organization/public", to: "organizations#update"
   get "*path" => 'application#not_found', constraints: lambda { |req|
