@@ -34,6 +34,9 @@ gem 'bootsnap', '>= 1.4.4', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'factory_bot_rails'
+  gem 'rspec-rails'
+  gem 'rswag-specs'
 end
 
 group :development do
@@ -50,4 +53,7 @@ gem 'dotenv'
 gem 'active_model_serializers', '~> 0.10.0'
 
 # AMAZON
-gem "aws-sdk-s3", require: false
+#gem "aws-sdk-s3", require: false
+gem 'rswag'
+gem 'rswag-api'
+gem 'rswag-ui'
