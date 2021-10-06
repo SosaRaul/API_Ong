@@ -40,7 +40,7 @@ regular = Role.create!(
     users = User.create!(
         firstName: Faker::Name.first_name ,
         lastName: Faker::Name.last_name,
-        email: Faker::Name.first_name+"@email.com",
+        email: Faker::Name.unique.first_name+"@email#{User.count}.com",
         password: "123",
         photo: Faker::Book.title,
         role: admin
@@ -51,7 +51,7 @@ end
     users = User.create!(
         firstName: Faker::Name.first_name ,
         lastName: Faker::Name.last_name,
-        email: Faker::Name.first_name+"@email.com",
+        email: Faker::Name.unique.last_name+"@email#{User.count}.com",
         password: "1234",
         photo: Faker::Book.title,
         role: regular
@@ -59,9 +59,9 @@ end
 end
 
 #CATEGORIES
-10.times do
+37.times do
     categories = Category.create!(
-        name: Faker::Book.title,
+        name: Faker::Book.unique.title,
         description: Faker::Quote.famous_last_words,
         image: nil
     )
@@ -69,7 +69,7 @@ end
 
 #NEWS
 4.times do
-    News.create!(name: "Noticia #{Faker::Number.non_zero_digit}",
+    News.create!(name: "Noticia #{Faker::Number.unique.non_zero_digit}",
                 content:Faker::Lorem.paragraph)
 end                
 
