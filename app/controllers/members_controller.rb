@@ -1,6 +1,6 @@
 class MembersController < ApplicationController
   before_action :set_member, only: [:show, :update, :destroy]
-
+  before_action :verify_user_is_admin, only: [:create, :update, :destroy]
   # GET /members
   def index
     @members = Member.all

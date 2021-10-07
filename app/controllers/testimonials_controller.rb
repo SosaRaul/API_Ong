@@ -1,6 +1,6 @@
 class TestimonialsController < ApplicationController
   before_action :set_testimonial, only: [:show, :update, :destroy]
-
+  before_action :verify_user_is_admin, only: [:create, :update, :destroy]
   # GET /testimonials
   def index
     @testimonials = Testimonial.all

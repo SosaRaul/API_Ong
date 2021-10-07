@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
   before_action :authorize_request
   before_action :set_category, only: [:show, :update, :destroy]
-  before_action :verify_user_is_admin, only: [:index, :show, :update, :destroy]
+  before_action :verify_user_is_admin, only: [:show, :update, :destroy]
 
   # GET /categories
   def index

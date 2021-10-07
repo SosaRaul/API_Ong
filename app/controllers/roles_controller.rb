@@ -1,6 +1,6 @@
 class RolesController < ApplicationController
   before_action :set_role, only: [:show, :update, :destroy]
-
+#  before_action :verify_user_is_admin, only: [:create, :update, :destroy]
   # GET /roles
   def index
     @roles = Role.all
