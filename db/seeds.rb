@@ -73,6 +73,16 @@ end
                 content:Faker::Lorem.paragraph)
 end                
 
+#CONTACTS
+# 5.times do
+#     contacts = Contact.create!(
+#         name: Faker::Name.first_name,
+#         phone: Faker::PhoneNumber.subscriber_number,
+#         email: Faker::Name.first_name+"@email.com",
+#         message:Faker::Lorem.paragraph,
+#         user: users
+#     )
+# end
 
 p "Creados #{User.count} usuarios , #{Category.count} categorias y #{News.count} novedades"
 
