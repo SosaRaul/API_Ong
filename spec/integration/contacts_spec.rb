@@ -51,11 +51,11 @@ path '/contacts/{id}' do
       user: { type: :string}
     },
       required: [ 'id', 'name', 'phone','email' ]
-  
+    end
 
-     let(:id) { Contact.create(name: 'Juan', email:'juan@juan.com', phone:'511111').id }
-       run_test!
-     end
+    #  let(:id) { Contact.create(name: 'Juan', email:'juan@juan.com', phone:'511111').id }
+    #    run_test!
+    #  end
   
     response '404', 'contact not found' do
       let(:id) { 'invalid' }
@@ -69,3 +69,4 @@ path '/contacts/{id}' do
     end
     end
   end
+

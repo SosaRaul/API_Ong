@@ -4,8 +4,8 @@ class ContactsController < ApplicationController
   # GET /contacts
   def index
     @contacts = Contact.all
-
-    render json: @contacts
+    #Habra conflicto porque agregue el serializer
+    render json: @contacts, each_serializer: ContactsSerializer::ContactinfoSerializer
   end
 
   # GET /contacts/1

@@ -351,35 +351,6 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "contact found",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "integer"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "phone": {
-                  "type": "integer"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "user": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "id",
-                "name",
-                "phone",
-                "email"
-              ]
-            }
-          },
           "404": {
             "description": "contact not found"
           },
