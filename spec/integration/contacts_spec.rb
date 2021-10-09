@@ -31,9 +31,9 @@ describe 'contacts API', type: :request do
       end
     end
   end
-end
 
-path '/contacts/' do
+
+path '/contacts/{id}' do
   get 'Retrieves a contact ' do
     tags 'contacts'
     produces 'application/json'#, 'application/xml'
@@ -53,7 +53,7 @@ path '/contacts/' do
       required: [ 'id', 'name', 'phone','email' ]
   
 
-    # let(:id) { Contact.create(name: 'Juan', email:'juan@juan.com', phone:'511111').id }
+     let(:id) { Contact.create(name: 'Juan', email:'juan@juan.com', phone:'511111').id }
        run_test!
      end
   
@@ -68,3 +68,4 @@ path '/contacts/' do
     end
     end
     end
+  end
