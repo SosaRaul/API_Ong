@@ -52,7 +52,7 @@ end
         firstName: Faker::Name.first_name ,
         lastName: Faker::Name.last_name,
         email: Faker::Name.first_name+"@email.com",
-        password: "1234",
+        password: "123",
         photo: Faker::Book.title,
         role: regular
     )
