@@ -1,8 +1,6 @@
 class Category < ApplicationRecord
     
     #Associations
-    #belongs_to:
-    #has_many or has_one:
     has_one_attached :image
    
     #Validations
@@ -19,6 +17,12 @@ class Category < ApplicationRecord
     end
     scope :not_deleted, -> { where(soft_deleted: false) }
     scope :deleted, -> { where(soft_deleted: true) }
+
+    scope :paginate, -> (page, per_page: 5) { 
+        page = page || 1   #make page = 1 by default if there is no param
+        limit(per_page).offset(per_page * (page.to_i - 1))
+     }
+     
 end
 
 
