@@ -2,7 +2,7 @@ require 'rails_helper'
 
 require 'swagger_helper'
 
-describe 'contacts API', type: :request do 
+RSpec.describe 'contacts API', type: :request do 
   path '/contacts' do 
     get 'Fetch contacts' do 
       tags 'contacts' 
@@ -63,10 +63,46 @@ path '/contacts/{id}' do
     end
 
     response '401', 'forbbiden' do
-      let(:news) { { title: 'foo'} }
+      let(:contact) { { title: 'foo'} }
       run_test!
     end
     end
     end
   end
 
+  RSpec.describe 'contacts API', type: :request do 
+  path '/contacts' do
+    post 'Creates a contact' do
+      tags 'contacts'
+      consumes 'application/json'
+      security [Bearer: {}]
+      parameter name: :Authorization, in: :header, type: :string
+      parameter name: :contact, in: :body, description: 'Info about contact to be create',
+      schema: {
+        type: :object,
+        properties: {
+          name: { type: :string },
+          email: { type: :string },
+          phone: { type: :integer },
+          message: {type: :string}
+        },
+        required: [ 'name', 'email' ,'phone','message']
+      }
+
+      response '201', 'contact created' do
+        let(:contact) { { title: 'foo', description: 'bar' } }
+        run_test!
+      end
+
+      response '404', 'not found' do
+        let(:contact) { { title: 'foo'} }
+        run_test!
+      end
+
+      response '401', 'forbbiden' do
+        let(:contact) { { title: 'foo'} }
+        run_test!
+    end
+  end
+end
+end

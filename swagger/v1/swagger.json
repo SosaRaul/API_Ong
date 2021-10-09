@@ -320,6 +320,67 @@
             }
           }
         }
+      },
+      "post": {
+        "summary": "Creates a contact",
+        "tags": [
+          "contacts"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "contact",
+            "in": "body",
+            "description": "Info about contact to be create",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "phone",
+                "message"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "contact created"
+          },
+          "404": {
+            "description": "not found"
+          },
+          "401": {
+            "description": "forbbiden"
+          }
+        }
       }
     },
     "/contacts/{id}": {
