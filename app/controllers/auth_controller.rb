@@ -1,6 +1,5 @@
 class AuthController < ApplicationController  
 
-#before_action :authorize_request, except: :login
 before_action :authorize_request, except: %i[register login]
 
   # Registro
@@ -30,6 +29,16 @@ before_action :authorize_request, except: %i[register login]
     else
       render json: { error: 'unauthorized' }, status: :unauthorized
     end
+  end
+
+  # Me/profile
+  # GET /auth/me
+  def me 
+    header = request.headers['Authorization']
+    header = header.split(' ').last if header
+      @decoded = JsonWebToken.decode(header)
+      @current_user = User.find(@decoded[:user_id])
+      render json: @current_user, serializer: AuthSerializer::AuthmeSerializer, status: :ok
   end
   
 

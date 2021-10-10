@@ -20,7 +20,7 @@ class ApplicationController < ActionController::API
   end
 
   def verify_user_is_admin  
-    if @current_user.role_id == 2 #role:2 belongs to a regular user. this method must me put below of authorize_request..
+    if @current_user.role_id > 1 #role:2 belongs to a regular user. this method must me put below of authorize_request..
       render status: :forbidden
     end
   end

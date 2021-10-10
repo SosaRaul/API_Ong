@@ -1,11 +1,13 @@
 class CategoriesController < ApplicationController
   before_action :authorize_request
   before_action :set_category, only: [:show, :update, :destroy]
-  before_action :verify_user_is_admin, only: [:index, :show, :update, :destroy]
+  before_action :verify_user_is_admin, only: [:show, :update, :destroy]
 
   # GET /categories
   def index
-    render json: categories.to_json(only: [:id, :name]),  status: :ok
+    #categories = Category.all.limit(5).offset(2)
+  render json: categories
+  #, each_serializer: CategorySerializer::CategoryindexSerializer #,  status: :ok
   end
 
   # GET /categories/1
@@ -49,8 +51,13 @@ class CategoriesController < ApplicationController
     end
 
     def categories
-      @category = Category.all
+      catgs = Category.all
+      categories = catgs.paginate(page) 
     end
+
+    def page 
+      params[:page]
+    end 
 
     # Only allow a list of trusted parameters through.
     def category_params
