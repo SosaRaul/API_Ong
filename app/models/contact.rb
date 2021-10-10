@@ -6,6 +6,6 @@ class Contact < ApplicationRecord
      validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP },  presence: true
      validates :name, 
                :phone,
-               :user,
+               :message,
                presence: true
 end

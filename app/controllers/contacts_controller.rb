@@ -1,6 +1,6 @@
 class ContactsController < ApplicationController
  before_action :authorize_request, only: [:index,:show, :update,:destroy, :create]
-
+ before_action :set_contact , only:[:show,:destroy,:update]
   # GET /contacts
   def index
     @contacts = Contact.all
@@ -38,6 +38,7 @@ class ContactsController < ApplicationController
   # DELETE /contacts/1
   def destroy
     @contact.destroy
+    render json: {message: "Contact has been deleted"} , status: :ok
   end
 
   private
@@ -61,6 +62,6 @@ class ContactsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def contact_params
-      params.require(:contact).permit(:name, :phone, :email, :message, :user_id, :current_user)
+      params.require(:contact).permit(:name, :phone, :email, :message, :user_id, :current_user)   
     end
 end
