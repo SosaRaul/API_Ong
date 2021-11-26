@@ -5,9 +5,9 @@ API que nos permite
 - Información de perfil
 - Carga de información 
 
-### Uso
 
-- Registrar usuario : 
+
+### Registrar usuario : 
 POST localhost:3000/auth/register
 Ejemplo :
 {
@@ -17,7 +17,8 @@ Ejemplo :
   "lastNamme": "doe"
 }
 
-- Login :
+
+### Login :
 POST localhost:3000/auth/login
 Ejemplo
 {
