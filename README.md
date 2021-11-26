@@ -1,24 +1,29 @@
-# README
+# API SomosMás
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+API que nos permite 
+- Registro/Eliminación/Login de usuarios
+- Información de perfil
+- Carga de información 
 
-Things you may want to cover:
 
-* Ruby version
 
-* System dependencies
+### Registrar usuario : 
+POST localhost:3000/auth/register
+ - Ejemplo :
+{
+  "email": "mail@mail.com",
+  "password": "*xxxxxxxx",
+  "firstName" : "john",
+  "lastNamme": "doe"
+}
 
-* Configuration
 
-* Database creation
+### Login :
+POST localhost:3000/auth/login
+- Ejemplo
+{
+ "email": "mail@mail.com",
+  "password": "*xxxxxxxx",
+}
 
-* Database initialization
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

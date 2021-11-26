@@ -262,6 +262,273 @@
           }
         }
       }
+    },
+    "/contacts": {
+      "get": {
+        "summary": "Fetch contacts",
+        "tags": [
+          "Contacts"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of contacts",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "integer"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "phone",
+                "email",
+                "user"
+              ]
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Creates a contact",
+        "tags": [
+          "Contacts"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "contact",
+            "in": "body",
+            "description": "Info about contact to be create",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "phone",
+                "message"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "contact created"
+          },
+          "404": {
+            "description": "not found"
+          },
+          "401": {
+            "description": "forbbiden"
+          }
+        }
+      }
+    },
+    "/contacts/{id}": {
+      "get": {
+        "summary": "Retrieves a contact ",
+        "tags": [
+          "Contacts"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "contact not found"
+          },
+          "401": {
+            "description": "forbbiden"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletes a contact",
+        "tags": [
+          "Contacts"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "contact deleted"
+          },
+          "404": {
+            "description": "not found"
+          },
+          "403": {
+            "description": "forbbiden"
+          }
+        }
+      },
+      "put": {
+        "summary": "Updates a contact",
+        "tags": [
+          "Contacts"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "contact",
+            "in": "body",
+            "description": "Update a contact",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "phone",
+                "message"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "contact updated"
+          },
+          "404": {
+            "description": "contact not found"
+          },
+          "403": {
+            "description": "forbbiden"
+          },
+          "422": {
+            "description": "unprocessable_entity"
+          }
+        }
+      }
     }
   },
   "servers": [

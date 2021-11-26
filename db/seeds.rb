@@ -51,8 +51,8 @@ end
     users = User.create!(
         firstName: Faker::Name.first_name ,
         lastName: Faker::Name.last_name,
-        email: Faker::Name.unique.last_name+"@email#{User.count}.com",
-        password: "1234",
+        email: Faker::Name.first_name+"@email.com",
+        password: "123",
         photo: Faker::Book.title,
         role: regular
     )
@@ -73,6 +73,16 @@ end
                 content:Faker::Lorem.paragraph)
 end                
 
+#CONTACTS
+# 5.times do
+#     contacts = Contact.create!(
+#         name: Faker::Name.first_name,
+#         phone: Faker::PhoneNumber.subscriber_number,
+#         email: Faker::Name.first_name+"@email.com",
+#         message:Faker::Lorem.paragraph,
+#         user: users
+#     )
+# end
 
 p "Creados #{User.count} usuarios , #{Category.count} categorias y #{News.count} novedades"
 

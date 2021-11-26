@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  mount Rswag::Ui::Engine => '/api-docs'
-  mount Rswag::Api::Engine => '/api-docs'
+  resources :contacts
+  mount Rswag::Ui::Engine => '/api/docs'
+  mount Rswag::Api::Engine => '/api/docs'
   resources :news
   resources :testimonials
   resources :roles
