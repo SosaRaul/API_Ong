@@ -9,7 +9,7 @@ API que nos permite
 
 ### Registrar usuario : 
 POST localhost:3000/auth/register
-Ejemplo :
+ - Ejemplo :
 {
   "email": "mail@mail.com",
   "password": "*xxxxxxxx",
@@ -20,7 +20,7 @@ Ejemplo :
 
 ### Login :
 POST localhost:3000/auth/login
-Ejemplo
+- Ejemplo
 {
  "email": "mail@mail.com",
   "password": "*xxxxxxxx",
